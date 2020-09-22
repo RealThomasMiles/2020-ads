@@ -6,11 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Problem1 {
     private static void solve(final FastScanner in, final PrintWriter out) {
         int i = Integer.parseInt(in.next());
-        out.write(i / 10 + " " + i % 10);
+        out.write(i / 10 + " " + i % 10 + '\n');
     }
 
     private static class FastScanner {
