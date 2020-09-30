@@ -34,14 +34,6 @@ public class Problem2 {
         }
     }
 
-    public static int compare(Integer a, Integer b) {
-        if (a % 10 != b % 10) {
-            return a % 10 - b % 10;
-        } else {
-            return a - b;
-        }
-    }
-
     private static class FastScanner {
         private final BufferedReader reader;
         private StringTokenizer tokenizer;
