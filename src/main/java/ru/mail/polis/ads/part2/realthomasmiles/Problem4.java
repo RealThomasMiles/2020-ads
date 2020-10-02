@@ -13,9 +13,11 @@ public class Problem4 {
         int k = in.nextInt();
         String[] input = in.readLine().split(" ");
         BigInteger[] arr = new BigInteger[input.length];
+
         for (int i = 0; i < input.length; i++) {
             arr[i] = new BigInteger(input[i]);
         }
+        
         out.write(kthSmallest(arr, 0, arr.length - 1, k).toString());
     }
 

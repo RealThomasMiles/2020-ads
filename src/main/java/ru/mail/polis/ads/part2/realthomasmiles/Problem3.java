@@ -11,9 +11,11 @@ public class Problem3 {
     private static void solve(final FastScanner in, final PrintWriter out) {
         int n = in.nextInt();
         int[] arr = new int[n];
+
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
+
         int counter = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
@@ -25,6 +27,7 @@ public class Problem3 {
                 }
             }
         }
+        
         out.write(String.valueOf(counter));
     }
 

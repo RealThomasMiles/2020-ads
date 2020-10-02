@@ -11,14 +11,19 @@ public class Problem5 {
     private static void solve(final FastScanner in, final PrintWriter out) {
         int n = in.nextInt();
         int[][] arr = new int[n][2];
+
         for (int i = 0; i < n; i++) {
             arr[i][0] = in.nextInt();
             arr[i][1] = in.nextInt();
         }
+
         mergeSort(arr, n);
+
+        StringBuilder output = new StringBuilder();
         for (int[] item : arr) {
-            out.write(String.valueOf(item[0]) + ' ' + String.valueOf(item[1]) + '\n');
+            output.append(item[0]).append(" ").append(item[1]).append('\n');
         }
+        out.write(output.toString());
     }
 
     private static void mergeSort(int[][] a, int n) {

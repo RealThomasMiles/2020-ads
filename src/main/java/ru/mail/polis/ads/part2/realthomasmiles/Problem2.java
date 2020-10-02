@@ -6,32 +6,24 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Problem2 {
     private static void solve(final FastScanner in, final PrintWriter out) {
         int n = in.nextInt();
-        int[] arr = new int[n];
+        Integer[] arr = new Integer[n];
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        for (int i = 0; i < n; i++) {
-            for (int j = 1; j < (n - i); j++) {
-                if (arr[j] % 10 != arr[j - 1] % 10) {
-                    if (arr[j] % 10 < arr[j - 1] % 10) {
-                        int temp = arr[j];
-                        arr[j] = arr[j - 1];
-                        arr[j - 1] = temp;
-                    }
-                } else if (arr[j] < arr[j - 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j - 1];
-                    arr[j - 1] = temp;
-                }
-            }
-        }
+
+        Arrays.sort(arr, new TrickySort());
+
+        StringBuilder output = new StringBuilder();
         for (int item : arr) {
-            out.write(String.valueOf(item) + ' ');
+            output.append(item).append(" ");
         }
+        out.write(output.toString());
     }
 
     private static class FastScanner {
@@ -62,6 +54,18 @@ public class Problem2 {
         final FastScanner in = new FastScanner(System.in);
         try (PrintWriter out = new PrintWriter(System.out)) {
             solve(in, out);
+        }
+    }
+}
+
+class TrickySort implements Comparator<Integer> {
+
+    @Override
+    public int compare(Integer a, Integer b) {
+        if (a % 10 != b % 10) {
+            return a % 10 - b % 10;
+        } else {
+            return a - b;
         }
     }
 }
