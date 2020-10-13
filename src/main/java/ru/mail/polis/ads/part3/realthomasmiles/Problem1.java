@@ -18,8 +18,8 @@ public class Problem1 {
         }
 
         boolean flag = true;
-        for (int i = 1; i <= (n / 2); i++) {
-            if (arr[i] > arr[2 * i] || arr[i] > arr[2 * i]) {
+        for (int i = 1; i < (n / 2); i++) {
+            if (arr[i] > arr[2 * i] || arr[i] > arr[2 * i + 1]) {
                 out.write("NO");
                 flag = false;
                 break;
