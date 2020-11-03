@@ -5,26 +5,47 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Problem3 {
+public class Problem5 {
     private static void solve(final FastScanner in, final PrintWriter out) {
-        long w = in.nextInt();
-        long h = in.nextInt();
-        long n = in.nextInt();
-
-        long l = Math.max(w, h);
-        long r = l * n;
-        while (l < r) {
-            long m = (l + r) / 2;
-            long count = (m / h) * (m / w);
-            if (n <= count) {
-                r = m;
-            } else {
-                l = m + 1;
-            }
+        int n = in.nextInt();
+        if (n == 1) {
+            out.print(1);
+            return;
         }
-        out.println(l);
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = i + 1;
+        }
+        for (int i = 0; i < n; i++)
+            out.write(arr[i] + " ");
+        out.println();
+        int i = n - 1;
+        while(i > 0) {
+            if(arr[i - 1] > arr[i]) {
+                i--;
+                continue;
+            }
+            int j = n - 1;
+            while (arr[i - 1] > arr[j]) {
+                j--;
+            }
+            int tmp = arr[i - 1];
+            arr[i - 1] = arr[j];
+            arr[j] = tmp;
+
+            int[] reverseTail = Arrays.copyOfRange(arr, i, n);
+            j = reverseTail.length - 1;
+            for (int k = i; k < n; k++) {
+                arr[k] = reverseTail[j--];
+            }
+            i = n - 1;
+            for (int k = 0; k < n; k++)
+                out.write(arr[k] + " ");
+            out.println();
+        }
     }
 
     private static class FastScanner {
