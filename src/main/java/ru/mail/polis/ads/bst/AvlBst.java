@@ -27,8 +27,9 @@ public class AvlBst<K extends Comparable<K>, V>
 
     private Node get(Node x, K key) {
         if (x == null) return null;
-        if (key.compareTo(x.key) < 0) return get(x.left, key);
-        if (key.compareTo(x.key) > 0) return get(x.right, key);
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return get(x.left, key);
+        if (cmp > 0) return get(x.right, key);
         return x;
     }    
 
@@ -38,9 +39,10 @@ public class AvlBst<K extends Comparable<K>, V>
             return new Node(key, value, 1);
         }
 
-        if (key.compareTo(x.key) < 0) {
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
             x.left = put(x.left, key, value);
-        } else if (key.compareTo(x.key) > 0) {
+        } else if (cmp > 0) {
             x.right = put(x.right, key, value);
         } else {
             x.value = value;
@@ -52,32 +54,32 @@ public class AvlBst<K extends Comparable<K>, V>
         return x;
     }
 
-    private void fixHeight(Node node) {
-        node.height = 1 +
+    private void fixHeight(Node x) {
+        x.height = 1 +
             Math.max(
-                height(node.left),
-                height(node.right));
+                height(x.left),
+                height(x.right));
     }
 
-    private Node balance(Node node) {
-        if (factor(node) == 2){
-            if (factor(node.left) < 0){
-                node.left = rotateLeft(node.left);
+    private Node balance(Node x) {
+        if (factor(x) == 2){
+            if (factor(x.left) < 0){
+                x.left = rotateLeft(x.left);
             }
-            return rotateRight(node);
+            return rotateRight(x);
         }
-        if (factor(node) == -2){
-            if (factor(node.right) > 0) {
-                node.right = rotateRight(node.right);
+        if (factor(x) == -2){
+            if (factor(x.right) > 0) {
+                x.right = rotateRight(x.right);
             }
-            return rotateLeft(node);
+            return rotateLeft(x);
         }
 
-        return node;
+        return x;
     }
 
-    private int factor(Node node) {
-        return height(node.left) - height(node.right);
+    private int factor(Node x) {
+        return height(x.left) - height(x.right);
     }
 
     private Node rotateRight(Node y){
@@ -102,18 +104,19 @@ public class AvlBst<K extends Comparable<K>, V>
         return y;
     }
 
-    private Node remove(Node node, K key){
-        if (node == null) return null;
+    private Node remove(Node x, K key){
+        if (x == null) return null;
 
-        if (key.compareTo(node.key) < 0) {
-            node.left = remove(node.left, key);
-        } else if (key.compareTo(node.key) > 0) {
-            node.right = remove(node.right, key);
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) {
+            x.left = remove(x.left, key);
+        } else if (cmp > 0) {
+            x.right = remove(x.right, key);
         } else {
-            node = innerDelete(node);
+            x = innerDelete(x);
         }
 
-        return node;
+        return x;
     }
 
     private Node innerDelete(Node x){
@@ -146,8 +149,8 @@ public class AvlBst<K extends Comparable<K>, V>
         return min;
     } 
 
-    private Node max(Node node){
-        Node max = node;
+    private Node max(Node x){
+        Node max = x;
 
         while (max.right != null){
             max = max.right;
@@ -159,7 +162,7 @@ public class AvlBst<K extends Comparable<K>, V>
     private Node floor(Node x, K key) {
         if (x == null) return null;
         if (key == x.key) return x;
-
+        
         if (x.key.compareTo(key) > 0) return floor(x.left, key);
         
         Node right = floor(x.right, key);
@@ -180,9 +183,9 @@ public class AvlBst<K extends Comparable<K>, V>
 
     @Override
     public V get(@NotNull K key) {
-        Node node = get(root, key);
+        Node x = get(root, key);
 
-        return node == null ? null : node.value;
+        return x == null ? null : x.value;
     }
 
     @Override
@@ -192,13 +195,13 @@ public class AvlBst<K extends Comparable<K>, V>
 
     @Override
     public V remove(@NotNull K key) {
-        Node node = get(root, key);
-        if (node == null) return null;
+        Node x = get(root, key);
+        if (x == null) return null;
         
         root = remove(root, key);
         size--;
 
-        return node.value;
+        return x.value;
     }
 
     @Override
@@ -223,16 +226,16 @@ public class AvlBst<K extends Comparable<K>, V>
 
     @Override
     public K floor(@NotNull K key) {
-        Node node = floor(root, key);
+        Node x = floor(root, key);
 
-        return node == null ? null : node.key;
+        return x == null ? null : x.key;
     }
 
     @Override
     public K ceil(@NotNull K key) {
-        Node node = ceil(root, key);
+        Node x = ceil(root, key);
 
-        return node == null ? null : node.key;
+        return x == null ? null : x.key;
     }
 
     @Override
@@ -245,7 +248,7 @@ public class AvlBst<K extends Comparable<K>, V>
         return height(root);
     }
 
-    private int height(Node node){
-        return node == null ? 0 : node.height;
+    private int height(Node x){
+        return x == null ? 0 : x.height;
     }
 }
