@@ -14,7 +14,7 @@ class HashTableBaseTest {
 
     HashTable<String, String> newTable() {
         // Use implementation
-        return null;
+        return new HashTableClass<>();
     }
 
     @Test
